@@ -1,4 +1,4 @@
-import { BigDecimal, ethereum } from "@graphprotocol/graph-ts";
+import { Address, BigDecimal, ethereum } from "@graphprotocol/graph-ts";
 
 import { Approval, ERC20, Transfer } from "../generated/ERC20/ERC20";
 import {
@@ -39,6 +39,11 @@ function loadOrCreateToken(event: ethereum.Event): Token | null {
       return null;
     }
 
+    let totalSupplyResult = erc20.try_totalSupply();
+    if (totalSupplyResult.reverted) {
+      return null;
+    }
+
     // Ignore any weird tokens to avoid overflowing the `decimals` field (which is an i32)
     // On mainnet for example there is at least one token which has a huge value for `decimals`
     // and that would overflow the Token entity's i32 field for the decimals
@@ -50,6 +55,7 @@ function loadOrCreateToken(event: ethereum.Event): Token | null {
     token.name = nameResult.value;
     token.symbol = symbolResult.value;
     token.decimals = decimalsResult.value.toI32();
+    token.totalSupply = totalSupplyResult.value;
     token.save();
   }
   return token;
@@ -91,6 +97,12 @@ export function handleTransfer(event: Transfer): void {
   let token = loadOrCreateToken(event);
   if (!token) {
     return;
+  }
+  let erc20 = ERC20.bind(Address.fromString(token.id));
+  let totalSupplyResult = erc20.try_totalSupply();
+  if (!totalSupplyResult.reverted) {
+    token.totalSupply = totalSupplyResult.value;
+    token.save();
   }
 
   let from = event.params.from.toHex();
