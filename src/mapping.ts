@@ -1,4 +1,4 @@
-import { Address, BigDecimal, ethereum } from "@graphprotocol/graph-ts";
+import { Address, BigDecimal, BigInt, ethereum } from "@graphprotocol/graph-ts";
 
 import { Approval, ERC20, Transfer } from "../generated/ERC20/ERC20";
 import {
@@ -56,6 +56,7 @@ function loadOrCreateToken(event: ethereum.Event): Token | null {
     token.symbol = symbolResult.value;
     token.decimals = decimalsResult.value.toI32();
     token.totalSupply = totalSupplyResult.value;
+    token.holdersCount = BigInt.fromI32(0);
     token.save();
   }
   return token;
@@ -124,17 +125,36 @@ export function handleTransfer(event: Transfer): void {
       fromTokenBalance.account = fromAccount.id;
       fromTokenBalance.value = BigDecimal.fromString("0");
     }
+    let oldFromValue = fromTokenBalance.value;
     fromTokenBalance.value = fromTokenBalance.value.minus(value);
+    
+    // Update holders count if balance goes to/from zero
+    if (oldFromValue.gt(BigDecimal.fromString("0")) && fromTokenBalance.value.equals(BigDecimal.fromString("0"))) {
+      token.holdersCount = token.holdersCount.minus(BigInt.fromI32(1));
+    }
+    
     fromTokenBalance.save();
   }
 
-  let toTokenBalance = TokenBalance.load(token.id + "-" + toAccount.id);
-  if (!toTokenBalance) {
-    toTokenBalance = new TokenBalance(token.id + "-" + toAccount.id);
-    toTokenBalance.token = token.id;
-    toTokenBalance.account = toAccount.id;
-    toTokenBalance.value = BigDecimal.fromString("0");
+  if (toAccount.id != zeroAddress) {
+    let toTokenBalance = TokenBalance.load(token.id + "-" + toAccount.id);
+    if (!toTokenBalance) {
+      toTokenBalance = new TokenBalance(token.id + "-" + toAccount.id);
+      toTokenBalance.token = token.id;
+      toTokenBalance.account = toAccount.id;
+      toTokenBalance.value = BigDecimal.fromString("0");
+    }
+    let oldToValue = toTokenBalance.value;
+    toTokenBalance.value = toTokenBalance.value.plus(value);
+    
+    // Update holders count if balance goes to/from zero
+    if (oldToValue.equals(BigDecimal.fromString("0")) && toTokenBalance.value.gt(BigDecimal.fromString("0"))) {
+      token.holdersCount = token.holdersCount.plus(BigInt.fromI32(1));
+    }
+    
+    toTokenBalance.save();
   }
-  toTokenBalance.value = toTokenBalance.value.plus(value);
-  toTokenBalance.save();
+  
+  // Save token with updated holdersCount
+  token.save();
 }

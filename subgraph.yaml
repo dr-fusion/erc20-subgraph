@@ -5,7 +5,7 @@ schema:
 dataSources:
   - kind: ethereum/contract
     name: ERC20
-    network: camp-testnet
+    network: basecamp
     source:
       abi: ERC20
       startBlock: 0

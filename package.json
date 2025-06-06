@@ -6,8 +6,13 @@
     "codegen": "graph codegen",
     "build": "graph build",
     "deploy": "graph deploy georgeroman/erc20-subgraph --ipfs https://api.thegraph.com/ipfs/ --node https://api.thegraph.com/deploy/",
-    "deploy-remote": "graph deploy georgeroman/erc20-subgraph-v2 --ipfs https://api.thegraph.com/ipfs/ --node https://deploy.graph.summitx.finance",
-    "create-remote": "graph create georgeroman/erc20-subgraph-v2 --node https://deploy.graph.summitx.finance"
+    "deploy-remote": "graph deploy georgeroman/erc20-subgraph-v2 --ipfs https://api.thegraph.com/ipfs --node https://deploy.graph.summitx.finance",
+    "create-remote": "graph create georgeroman/erc20-subgraph-v2 --node https://deploy.graph.summitx.finance",
+    "deploy-remote-v3": "graph deploy georgeroman/erc20-subgraph --ipfs https://ipfs.graphv3.summitx.finance --node https://deploy.graphv3.summitx.finance",
+    "create-remote-v3": "graph create georgeroman/erc20-subgraph --node https://deploy.graphv3.summitx.finance",
+    "deploy-remote-v4": "graph deploy georgeroman/erc20-subgraph --ipfs https://ipfs.graphv4.summitx.finance --node https://deploy.graphv4.summitx.finance",
+    "create-remote-v4": "graph create georgeroman/erc20-subgraph --node https://deploy.graphv4.summitx.finance",
+    "deploy-remote-goldsky":"goldsky subgraph deploy georgeroman-erc20-subgraph/1.0.0 --path build/"
   },
   "author": "George Roman",
   "license": "MIT",
