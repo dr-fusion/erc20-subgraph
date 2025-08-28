@@ -5,7 +5,7 @@ schema:
 dataSources:
   - kind: ethereum/contract
     name: ERC20
-    network: dogeos
+    network: dogeos-devnet
     source:
       abi: ERC20
       startBlock: 0
