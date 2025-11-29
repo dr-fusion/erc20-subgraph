@@ -5,10 +5,10 @@ schema:
 dataSources:
   - kind: ethereum/contract
     name: ERC20
-    network: dogeos-devnet
+    network: megaeth-testnet
     source:
       abi: ERC20
-      startBlock: 0
+      startBlock: 4554400
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6

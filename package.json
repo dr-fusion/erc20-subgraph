@@ -15,8 +15,11 @@
     "deploy-remote-goldsky":"goldsky subgraph deploy georgeroman-erc20-subgraph/1.0.0 --path build/",
     "create-local-dogeos": "graph create --node http://localhost:8020 muchfi/erc20-subgraph",
     "deploy-local-dogeos": "graph deploy --node http://localhost:8020 --ipfs http://localhost:5001 muchfi/erc20-subgraph subgraph.yaml",
+    "create-local-dogeos": "graph create --node http://localhost:8020 megaeth-testnet/erc20-subgraph",
+    "deploy-local-dogeos": "graph deploy --node http://localhost:8020 --ipfs http://localhost:5001 megaeth-testnet/erc20-subgraph subgraph.yaml",
     "create-remote-dogeos-testnet":"graph create muchfi/erc20-subgraph --node https://deploy.graphv4.summitx.finance",
-    "deploy-remote-dogeos-testnet":"graph deploy muchfi/erc20-subgraph --ipfs https://ipfs.graphv4.summitx.finance --node https://deploy.graphv4.summitx.finance"
+    "deploy-remote-dogeos-testnet":"graph deploy muchfi/erc20-subgraph --ipfs https://ipfs.graphv4.summitx.finance --node https://deploy.graphv4.summitx.finance",
+    "create-goldsky-megaeth":"goldsky subgraph deploy megaeth-erc20-subgraph/1.0.0 --path build/"
   },
   "author": "George Roman",
   "license": "MIT",
