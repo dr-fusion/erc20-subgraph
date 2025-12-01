@@ -15,9 +15,9 @@
     "deploy-remote-goldsky":"goldsky subgraph deploy georgeroman-erc20-subgraph/1.0.0 --path build/",
     "create-remote-camp-mainnet":"graph create georgeroman/erc20-subgraph-camp-mainnet --node https://deploy.graph.mainnet.summitx.finance",
     "deploy-remote-camp-mainnet":"graph deploy georgeroman/erc20-subgraph-camp-mainnet --ipfs https://ipfs.graph.mainnet.summitx.finance --node https://deploy.graph.mainnet.summitx.finance",
-"create-remote-megaeth-testnet":"graph create georgeroman/erc20-subgraph-megaeth-testnet --node https://deploy.graph.testnet.megaeth.summitx.finance",
+    "create-remote-megaeth-testnet":"graph create georgeroman/erc20-subgraph-megaeth-testnet --node https://deploy.graph.testnet.megaeth.summitx.finance",
     "deploy-remote-megaeth-testnet":"graph deploy georgeroman/erc20-subgraph-megaeth-testnet --ipfs https://ipfs.graph.testnet.megaeth.summitx.finance --node https://deploy.graph.testnet.megaeth.summitx.finance",
-
+    "remove-remote-megaeth-testnet":"graph remove georgeroman/erc20-subgraph-megaeth-testnet --node https://deploy.graph.testnet.megaeth.summitx.finance",
     "deploy-remote-goldsky-mainnet":"goldsky subgraph deploy georgeroman-erc20-subgraph-camp-mainnet/1.0.0 --path build/"
   },
   "author": "George Roman",

@@ -8,7 +8,7 @@ dataSources:
     network: megaeth-testnet
     source:
       abi: ERC20
-      startBlock: 0
+      startBlock: 4547208
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
